@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Referral Pro — Ajak Teman Plus | Ajaib</title>
+<meta name="description" content="Bagikan link referral Ajaib dan dapatkan komisi dari aktivitas trading temanmu. Referral Pro — bukan sekadar bonus satu kali." />
+<style>
+  :root {
+    --bg:        #0D0D12;
+    --bg-2:      #14141B;
+    --surface:   #1A1A22;
+    --border:    rgba(255,255,255,0.12);
+    --border-2:  rgba(255,255,255,0.20);
+    --text:      #FFFFFF;
+    --muted:     #9CA3AF;
+    --faint:     #6B7280;
+    --accent:    #A78BFA;
+    --accent-2:  #5DCAA5;
+    --radius:    12px;
+    --maxw:      1080px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13,13,18,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 26px; }
+  .nav-links a { font-size: 14px; color: var(--muted); }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { display: flex; gap: 10px; }
+  .btn {
+    font-size: 14px; font-weight: 500; border-radius: 10px;
+    padding: 9px 18px; cursor: pointer; border: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: transform .12s ease, opacity .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 0.5px solid var(--border-2); }
+  .btn-primary { background: var(--accent); color: #0D0D12; }
+  .btn-white { background: #fff; color: #0D0D12; }
+  .nav-links, .nav-desktop-cta { display: none; }
+  @media (min-width: 860px) {
+    .nav-links, .nav-desktop-cta { display: flex; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { text-align: center; padding: 72px 0 52px; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    border: 0.5px solid rgba(167,139,250,0.4); padding: 6px 16px;
+    border-radius: 999px; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(30px, 8vw, 52px); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 18px;
+  }
+  .hero p {
+    font-size: clamp(14px, 4vw, 17px); color: var(--muted);
+    max-width: 480px; margin: 0 auto 30px; line-height: 1.6;
+  }
+  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero-cta .btn { padding: 13px 28px; font-size: 15px; }
+
+  /* ---------- Ticker ---------- */
+  .ticker {
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    overflow: hidden; white-space: nowrap; padding: 12px 0;
+  }
+  .ticker-track {
+    display: inline-block; animation: scroll 26s linear infinite;
+    will-change: transform;
+  }
+  .ticker-track span { font-size: 13px; color: var(--muted); margin: 0 22px; }
+  .ticker-track b { font-weight: 600; }
+  .up { color: var(--accent-2); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+
+  /* ---------- Section shells ---------- */
+  section { padding: 60px 0; }
+  .section-title { font-size: clamp(22px, 6vw, 30px); font-weight: 700; letter-spacing: -0.02em; text-align: center; }
+  .section-sub { font-size: 14px; color: var(--muted); text-align: center; margin-top: 8px; }
+
+  /* ---------- Benefit cards ---------- */
+  .cards { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 36px; }
+  @media (min-width: 720px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+  .card {
+    border: 0.5px solid var(--border); border-radius: var(--radius);
+    padding: 22px; background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  }
+  .card .num { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ---------- Steps ---------- */
+  .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 36px; }
+  @media (min-width: 720px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .step { text-align: center; padding: 18px 10px; }
+  .step .ring {
+    width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+    background: rgba(167,139,250,0.15); color: var(--accent);
+  }
+  .step.paid .ring { background: rgba(93,202,165,0.15); color: var(--accent-2); }
+  .step h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .step p { font-size: 12px; color: var(--muted); }
+
+  /* ---------- Form ---------- */
+  .form-section { background: var(--bg-2); border-top: 0.5px solid var(--border); }
+  .form-card { max-width: 460px; margin: 0 auto; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .field input, .field select {
+    width: 100%; background: var(--bg); color: var(--text);
+    border: 0.5px solid var(--border-2); border-radius: 10px;
+    padding: 12px 14px; font-size: 14px; font-family: inherit;
+  }
+  .field input::placeholder { color: var(--faint); }
+  .field input:focus, .field select:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(167,139,250,0.2);
+  }
+  .social-row { display: flex; gap: 8px; }
+  .social-row input { flex: 1; }
+  .icon-btn {
+    background: var(--bg); border: 0.5px solid var(--border-2); border-radius: 10px;
+    color: var(--text); width: 46px; font-size: 18px; cursor: pointer; flex-shrink: 0;
+  }
+  .icon-btn:hover { border-color: var(--accent); }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    font-size: 13px; color: var(--muted); border: 0.5px solid var(--border-2);
+    padding: 7px 15px; border-radius: 999px; cursor: pointer;
+    background: transparent; font-family: inherit; transition: all .12s ease;
+  }
+  .pill[aria-pressed="true"] { background: var(--accent); color: #0D0D12; border-color: var(--accent); font-weight: 600; }
+  .submit { width: 100%; background: var(--accent); color: #0D0D12; border: none; border-radius: 10px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+  .submit:hover { opacity: .9; }
+  .disclaimer { font-size: 12px; color: var(--faint); text-align: center; margin-top: 14px; }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width: 620px; margin: 32px auto 0; }
+  details { border-bottom: 0.5px solid var(--border); padding: 4px 0; }
+  summary {
+    list-style: none; cursor: pointer; padding: 16px 4px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 15px; font-weight: 500;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 20px; color: var(--muted); font-weight: 400; }
+  details[open] summary::after { content: "−"; }
+  details p { font-size: 14px; color: var(--muted); padding: 0 4px 16px; line-height: 1.6; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 0.5px solid var(--border); padding: 26px 0;
+  }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .foot .brand { font-size: 15px; }
+  .foot small { font-size: 12px; color: var(--faint); }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">ajaib</div>
+      <nav class="nav-links">
+        <a href="#benefits">Benefit</a>
+        <a href="#how">Cara Kerja</a>
+        <a href="#daftar">Daftar</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#daftar" class="btn btn-ghost nav-desktop-cta">Login</a>
+        <a href="#daftar" class="btn btn-white">Daftar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero wrap">
+    <span class="eyebrow">Referral Pro — Ajak Teman Plus</span>
+    <h1>Earn While<br>They Trade</h1>
+    <p>Bagikan link referral kamu dan dapatkan komisi dari aktivitas trading teman — bukan sekadar bonus satu kali.</p>
+    <div class="hero-cta">
+      <a href="#daftar" class="btn btn-primary">Daftar Sekarang ↓</a>
+      <a href="#how" class="btn btn-ghost">Pelajari Program</a>
+    </div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>Komisi minggu ini <b class="up">Rp2.450.000</b></span>
+      <span>Referral aktif <b>128</b></span>
+      <span>IDS <b class="up">MVP</b></span>
+      <span>Crypto <b class="up">MVP</b></span>
+      <span>Weekly payout <b>Setiap Jumat</b></span>
+      <span>Komisi minggu ini <b class="up">Rp2.450.000</b></span>
+      <span>Referral aktif <b>128</b></span>
+      <span>IDS <b class="up">MVP</b></span>
+      <span>Crypto <b class="up">MVP</b></span>
+      <span>Weekly payout <b>Setiap Jumat</b></span>
+    </div>
+  </div>
+
+  <!-- Benefits -->
+  <section id="benefits" class="wrap">
+    <h2 class="section-title">Kenapa Referral Pro?</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Komisi berkelanjutan</h3>
+        <p>Revenue sharing dari aktivitas trading Referee — bukan reward sekali saja seperti Referral Lite.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Weekly payout</h3>
+        <p>Komisi dibayarkan rutin melalui proses Weekly Payout, langsung ke akunmu.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Dashboard lengkap</h3>
+        <p>Pantau total referral, trading user, riwayat komisi, dan status setiap Referee.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="wrap">
+    <h2 class="section-title">Cara Kerjanya</h2>
+    <p class="section-sub">Empat langkah sampai komisi masuk</p>
+    <div class="steps">
+      <div class="step">
+        <div class="ring">📦</div>
+        <h4>Pilih produk</h4>
+        <p>IDS (Saham) atau Crypto</p>
+      </div>
+      <div class="step">
+        <div class="ring">🔗</div>
+        <h4>Bagikan link</h4>
+        <p>Link atau kode referral</p>
+      </div>
+      <div class="step">
+        <div class="ring">✅</div>
+        <h4>Teman trading</h4>
+        <p>KYC, top up, transaksi pertama</p>
+      </div>
+      <div class="step paid">
+        <div class="ring">🪙</div>
+        <h4>Terima komisi</h4>
+        <p>Via Weekly Payout</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section id="daftar" class="form-section">
+    <div class="wrap">
+      <h2 class="section-title">Gabung Referral Pro</h2>
+      <p class="section-sub">Isi form di bawah — tim kami akan menghubungi kamu setelah lolos kurasi.</p>
+      <form class="form-card" style="margin-top:32px" onsubmit="handleSubmit(event)">
+        <div class="field">
+          <label for="name">Nama lengkap</label>
+          <input id="name" type="text" placeholder="Nama sesuai KTP" required />
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="nama@email.com" required />
+          </div>
+          <div class="field">
+            <label for="phone">No. HP</label>
+            <input id="phone" type="tel" placeholder="+62" required />
+          </div>
+        </div>
+        <div class="field">
+          <label>Link sosial media</label>
+          <div class="social-row" id="socials">
+            <input type="url" placeholder="https://instagram.com/username" />
+          </div>
+          <button type="button" class="icon-btn" style="width:100%;margin-top:8px;font-size:13px;padding:10px" onclick="addSocial()">+ Tambah link</button>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="size">Jumlah audiens</label>
+            <input id="size" type="text" placeholder="contoh: 50.000" />
+          </div>
+          <div class="field">
+            <label for="product">Produk referral</label>
+            <select id="product">
+              <option value="ids">IDS (Saham)</option>
+              <option value="crypto">Crypto</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Tipe audiens</label>
+          <div class="pills">
+            <button type="button" class="pill" aria-pressed="true" onclick="togglePill(this)">Finance</button>
+            <button type="button" class="pill" aria-pressed="false" onclick="togglePill(this)">Lifestyle</button>
+            <button type="button" class="pill" aria-pressed="false" onclick="togglePill(this)">Entertainment</button>
+            <button type="button" class="pill" aria-pressed="false" onclick="togglePill(this)">Lainnya</button>
+          </div>
+        </div>
+        <button type="submit" class="submit">Kirim Pendaftaran</button>
+        <p class="disclaimer">Referral Pro hanya tersedia untuk pengguna terpilih sesuai kriteria Ajaib.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="wrap">
+    <h2 class="section-title">Punya pertanyaan?</h2>
+    <div class="faq">
+      <details open>
+        <summary>Kapan komisi saya dibayarkan?</summary>
+        <p>Komisi dibayarkan melalui proses Weekly Payout setelah Referee memenuhi seluruh persyaratan program — registrasi, KYC approved, top up, dan transaksi pertama dalam periode program.</p>
+      </details>
+      <details>
+        <summary>Apakah kode referral perlu dimasukkan manual?</summary>
+        <p>Tidak. Jika Referee mendaftar melalui Referral Pro Link, kode referral otomatis diterapkan saat registrasi selesai.</p>
+      </details>
+      <details>
+        <summary>Kenapa saya tidak melihat menu Referral Pro?</summary>
+        <p>Menu Referral Pro hanya tersedia untuk pengguna yang telah diberikan akses berdasarkan kriteria kelayakan Ajaib.</p>
+      </details>
+      <details>
+        <summary>Berapa kali Referee bisa mendapatkan reward?</summary>
+        <p>Setiap Referee hanya berhak menerima referral reward satu kali.</p>
+      </details>
+      <details>
+        <summary>Produk apa saja yang didukung?</summary>
+        <p>Pada fase MVP, hanya IDS (Saham) dan Crypto yang didukung. Top up dan transaksi pertama harus sesuai produk yang dipilih Referrer.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap foot">
+      <div class="brand">ajaib</div>
+      <small>© 2026 PT Ajaib Teknologi Indonesia — All Rights Reserved</small>
+    </div>
+  </footer>
+
+  <script>
+    function togglePill(el) {
+      const pressed = el.getAttribute('aria-pressed') === 'true';
+      el.setAttribute('aria-pressed', String(!pressed));
+    }
+    function addSocial() {
+      const wrap = document.getElementById('socials');
+      const input = document.createElement('input');
+      input.type = 'url';
+      input.placeholder = 'https://tiktok.com/@username';
+      input.style.marginTop = '8px';
+      wrap.parentNode.insertBefore(input, wrap.nextSibling);
+    }
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('Terima kasih! Pendaftaran kamu sudah kami terima. Tim Ajaib akan menghubungi setelah proses kurasi.');
+    }
+  </script>
+</body>
+</html>
