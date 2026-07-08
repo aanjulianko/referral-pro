@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ajak Teman Plus — Ajaib Ambassador</title>
+<meta name="description" content="Bagikan kode unikmu, ajak teman investasi di Ajaib, dan dapatkan komisi bulanan dari setiap transaksi mereka." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:        #3A83F9;
+    --blue-grad-1: #5C9DFF;
+    --blue-grad-2: #3C86F7;
+    --blue-grad-3: #1C70EE;
+    --ink:         #06090D;
+    --ink-2:       #152341;
+    --slate:       #445B70;
+    --slate-2:     #36526C;
+    --placeholder: #7C9AAC;
+    --border:      #B5CBD6;
+    --card-border: #E1F2FA;
+    --tint:        #E1F2FA;
+    --white:       #FFFFFF;
+    --radius-card: 20px;
+    --radius-lg:   32px;
+    --maxw:        1280px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  h1, h2, h3, .display { font-family: 'Gabarito', sans-serif; }
+  a { text-decoration: none; color: inherit; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 100px; }
+  .accent { color: var(--blue); }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    font-family: 'Lato', sans-serif; font-weight: 700; cursor: pointer;
+    border-radius: 100px; transition: transform .12s ease, opacity .12s ease;
+    border: 1.5px solid transparent;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--blue); color: var(--white); }
+  .btn-outline { background: transparent; color: var(--blue); border-color: var(--blue); }
+  .btn-white   { background: var(--white); color: var(--blue); }
+  .btn-sm { padding: 8px 20px; font-size: 14px; }
+  .btn-md { padding: 12px 32px; font-size: 16px; }
+  .btn-lg { padding: 14px 40px; font-size: 18px; }
+
+  /* App store badges (CSS recreation) */
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #000; color: #fff; border-radius: 8px;
+    padding: 7px 14px; height: 40px;
+  }
+  .badge .ico { font-size: 20px; line-height: 1; }
+  .badge .txt { display: flex; flex-direction: column; line-height: 1.1; }
+  .badge .txt small { font-size: 8px; opacity: .85; text-transform: uppercase; letter-spacing: .04em; }
+  .badge .txt span { font-size: 14px; font-weight: 700; font-family: 'Gabarito', sans-serif; }
+
+  /* ---------- Top bar ---------- */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #EEF3F6; height: 64px;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: 'Gabarito', sans-serif; font-weight: 800; font-size: 22px; color: var(--blue); letter-spacing: -0.02em; }
+  .nav-menu { display: flex; gap: 28px; }
+  .nav-menu a { font-size: 15px; color: var(--slate); font-weight: 700; }
+  .nav-menu a:hover { color: var(--blue); }
+  .nav-actions { display: flex; gap: 12px; align-items: center; }
+  .hamburger { display: none; background: none; border: none; font-size: 26px; color: var(--ink); cursor: pointer; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: radial-gradient(120% 90% at 50% 100%, var(--blue-grad-1) 0%, var(--blue-grad-2) 50%, var(--blue-grad-3) 100%);
+    color: var(--white); overflow: hidden;
+  }
+  .hero-inner { display: flex; gap: 40px; align-items: center; min-height: 640px; padding-top: 60px; padding-bottom: 60px; }
+  .hero-copy { flex: 1 1 524px; max-width: 560px; }
+  .hero h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 800; line-height: 1.12; margin-bottom: 20px; }
+  .hero p { font-size: 16px; line-height: 24px; margin-bottom: 12px; opacity: .95; }
+  .hero .cta-row { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .badge-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-visual {
+    flex: 0 0 556px; height: 558px; max-width: 556px;
+    background: rgba(255,255,255,0.10); border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .hero-visual span { color: rgba(255,255,255,0.5); font-size: 14px; }
+
+  /* ---------- Section shells ---------- */
+  section { padding: 80px 0; }
+  .sec-title { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.15; color: var(--ink); }
+  .sec-sub { font-size: clamp(16px, 2.5vw, 20px); line-height: 28px; color: var(--slate); margin-top: 20px; }
+  .center { text-align: center; }
+  .center .sec-sub { max-width: 860px; margin-left: auto; margin-right: auto; }
+
+  /* ---------- What is it ---------- */
+  .about-visual {
+    margin-top: 40px; width: 100%; aspect-ratio: 1080 / 480; background: var(--tint);
+    border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center;
+  }
+  .play-btn {
+    width: 88px; height: 88px; border-radius: 50%; background: var(--blue); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 30px;
+    box-shadow: 0 8px 30px rgba(58,131,249,0.35);
+  }
+
+  /* ---------- Why (feature circles) ---------- */
+  .why-head { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+  .why-head h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 800; }
+  .why-head p { font-size: clamp(16px, 2.5vw, 20px); color: var(--slate); line-height: 1.4; }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .why-item { text-align: center; padding: 0 24px; }
+  .why-circle {
+    width: 86px; height: 86px; border-radius: 50%; margin: 0 auto 32px;
+    background: linear-gradient(135deg, var(--blue-grad-1), var(--blue-grad-3));
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 34px;
+  }
+  .why-item h3 { font-size: 24px; font-weight: 800; color: var(--ink); margin-bottom: 12px; }
+  .why-item p { font-size: 16px; color: var(--slate); line-height: 24px; }
+
+  /* ---------- How it works (cards) ---------- */
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
+  .card {
+    border: 1px solid var(--card-border); border-radius: var(--radius-card);
+    padding: 32px 24px; display: flex; flex-direction: column; gap: 20px;
+  }
+  .card-ico {
+    width: 64px; height: 64px; border-radius: 16px; background: var(--tint);
+    display: flex; align-items: center; justify-content: center; font-size: 30px;
+  }
+  .card h3 { font-size: 24px; font-weight: 800; color: var(--ink); line-height: 32px; }
+  .card p { font-size: 16px; color: var(--slate); line-height: 24px; }
+
+  /* ---------- Playlist / video ---------- */
+  .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 40px; }
+  .video-tile {
+    aspect-ratio: 520 / 288; background: var(--tint); border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .video-tile .play-btn { width: 64px; height: 64px; font-size: 24px; }
+
+  /* ---------- Form ---------- */
+  .form-wrap { max-width: 1052px; margin: 48px auto 0; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .field { margin-bottom: 36px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label { display: block; font-family: 'Gabarito', sans-serif; font-weight: 700; font-size: 16px; color: var(--ink-2); margin-bottom: 8px; }
+  .field input, .field select {
+    width: 100%; height: 48px; border: 1px solid var(--border); border-radius: 4px;
+    padding: 8px 16px; font-family: 'Lato', sans-serif; font-size: 14px; color: var(--ink);
+    background: var(--white);
+  }
+  .field input::placeholder { color: var(--placeholder); }
+  .field input:focus, .field select:focus {
+    outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(58,131,249,0.15);
+  }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer;
+    padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border);
+    background: var(--white); color: var(--slate); transition: all .12s ease;
+  }
+  .pill[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .form-submit { text-align: center; margin-top: 8px; }
+  .form-submit .btn { width: 368px; max-width: 100%; }
+
+  /* ---------- FAQ ---------- */
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+  details {
+    border: 1px solid var(--card-border); border-radius: 12px; margin-bottom: 16px;
+    padding: 4px 8px; background: #fff;
+  }
+  summary {
+    list-style: none; cursor: pointer; padding: 18px 8px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    font-family: 'Gabarito', sans-serif; font-weight: 700; font-size: 17px; color: var(--ink);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "＋"; color: var(--blue); font-size: 20px; flex-shrink: 0; }
+  details[open] summary::after { content: "－"; }
+  details p { padding: 0 8px 18px; color: var(--slate); font-size: 15px; line-height: 1.6; }
+  .faq-video { display: flex; flex-direction: column; gap: 16px; }
+  .faq-video h3 { font-family: 'Gabarito', sans-serif; font-size: 20px; font-weight: 700; }
+
+  /* ---------- Download banner ---------- */
+  .dl-banner { padding: 60px 0; }
+  .dl-inner {
+    background: linear-gradient(120deg, var(--blue-grad-2), var(--blue-grad-3));
+    border-radius: var(--radius-lg); padding: 48px; color: #fff; overflow: hidden;
+    display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 32px; align-items: center; position: relative;
+  }
+  .dl-inner h2 { font-size: clamp(24px, 3.5vw, 34px); font-weight: 800; line-height: 1.25; margin-bottom: 16px; }
+  .dl-inner p { opacity: .92; margin-bottom: 24px; }
+  .dl-badges { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .qr {
+    width: 200px; height: 200px; background: #fff; border-radius: 16px; margin-left: auto;
+    display: flex; align-items: center; justify-content: center; color: var(--placeholder); font-size: 13px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer { background: #0B1B2B; color: #B5CBD6; padding: 48px 0; }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot .logo { color: #fff; }
+  .foot small { font-size: 13px; color: #7C9AAC; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .wrap { padding: 0 40px; }
+    .cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 860px) {
+    .nav-menu { display: none; }
+    .nav-actions .btn-outline { display: none; }
+    .hamburger { display: block; }
+    .hero-inner { flex-direction: column; align-items: flex-start; min-height: 0; }
+    .hero-visual { flex-basis: auto; width: 100%; height: 300px; }
+    .why-head { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; gap: 40px; }
+    .video-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; gap: 0; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .dl-inner { grid-template-columns: 1fr; }
+    .qr { margin: 0 auto; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 20px; }
+    section { padding: 56px 0; }
+    .cards { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } .btn:hover { transform: none; } }
+
+  /* Mobile menu */
+  #mobileMenu { display: none; padding: 16px 20px; border-bottom: 1px solid #EEF3F6; background: #fff; }
+  #mobileMenu.open { display: block; }
+  #mobileMenu a { display: block; padding: 10px 0; font-weight: 700; color: var(--slate); }
+</style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header>
+    <div class="wrap nav">
+      <a href="#" class="logo">ajaib</a>
+      <nav class="nav-menu">
+        <a href="#about">Tentang</a>
+        <a href="#why">Kenapa</a>
+        <a href="#how">Cara Kerja</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="#form" class="btn btn-outline btn-sm">Login</a>
+        <a href="#form" class="btn btn-primary btn-sm">Daftar Ajaib</a>
+        <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">☰</button>
+      </div>
+    </div>
+    <div id="mobileMenu">
+      <a href="#about" onclick="toggleMenu()">Tentang</a>
+      <a href="#why" onclick="toggleMenu()">Kenapa</a>
+      <a href="#how" onclick="toggleMenu()">Cara Kerja</a>
+      <a href="#faq" onclick="toggleMenu()">FAQ</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" style="padding:0;">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <h1>Ajak Teman, Panen Komisi Tiap Bulan!</h1>
+        <p>Bagikan kode unikmu, ajak teman investasi di Ajaib, dan dapatkan penghasilan dari setiap transaksi mereka.</p>
+        <p>Dapatkan komisi bulanan dengan jadi Ajaib Ambassador. Cukup bagikan kode unikmu, dan raih potensi penghasilan dari transaksi temanmu.</p>
+        <div class="cta-row">
+          <a href="#form" class="btn btn-white btn-md" style="border-radius:60px;">Daftar Ambassador</a>
+          <div class="badge-row">
+            <a class="badge" href="#"><span class="ico">▶</span><span class="txt"><small>Dapatkan di</small><span>Google Play</span></span></a>
+            <a class="badge" href="#"><span class="ico"></span><span class="txt"><small>Download di</small><span>App Store</span></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual"><span>Hero visual</span></div>
+    </div>
+  </section>
+
+  <!-- What is it -->
+  <section id="about" class="center">
+    <div class="wrap">
+      <h2 class="sec-title">Apa Itu <span class="accent">Ajak Teman Plus</span></h2>
+      <p class="sec-sub">Ajaib Ambassador adalah program resmi Ajaib yang memberikan komisi bulanan untukmu. Bagikan kode unikmu, lalu ajak teman-temanmu untuk mulai berinvestasi, dan dapatkan komisi dari setiap transaksi mereka. Syarat dan ketentuan berlaku.</p>
+      <div class="about-visual"><div class="play-btn">▶</div></div>
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section id="why">
+    <div class="wrap">
+      <div class="why-head">
+        <h2>Kenapa <span class="accent">Ajak Teman Plus?</span></h2>
+        <p>Revenue sharing dari trading Referee dari teman maupun komunitas kamu</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-circle">％</div>
+          <h3>10% Bonus 5% Plus</h3>
+          <p>Revenue sharing dari trading Referee, bukan reward sekali saja.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-circle">🗓</div>
+          <h3>Payout Mingguan</h3>
+          <p>Revenue sharing dari trading Referee, bukan reward sekali saja.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-circle">📊</div>
+          <h3>Pantau Tiap Minggu</h3>
+          <p>Bonus dibayarkan rutin lewat proses Weekly Payout.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="center">
+    <div class="wrap">
+      <h2 class="sec-title">Cara Kerja <span class="accent">Ajak Teman Plus</span></h2>
+      <p class="sec-sub">Tiga langkah sampai bonus masuk ke RDN kamu</p>
+      <div class="cards" style="text-align:left;">
+        <div class="card">
+          <div class="card-ico">📦</div>
+          <h3>Pilih produk</h3>
+          <p>Pilih produk yang mau kamu referensikan — IDS (Saham) atau Crypto.</p>
+        </div>
+        <div class="card">
+          <div class="card-ico">🔗</div>
+          <h3>Bagikan Kode Ajaib</h3>
+          <p>Sebarkan kode atau link uniqmu ke teman dan komunitas kamu.</p>
+        </div>
+        <div class="card">
+          <div class="card-ico">🤝</div>
+          <h3>Ajak Untuk Trading</h3>
+          <p>Teman mendaftar, KYC, top up, dan mulai transaksi pertama.</p>
+        </div>
+        <div class="card">
+          <div class="card-ico">🪙</div>
+          <h3>Terima Bonus</h3>
+          <p>Terima bonus dengan pembayaran mingguan setiap teman trading di Ajaib.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Playlist -->
+  <section class="center">
+    <div class="wrap">
+      <h2 class="sec-title">Playlist <span class="accent">Ajak Teman Plus</span></h2>
+      <p class="sec-sub">Apa kata mereka tentang Teman Plus</p>
+      <div class="video-grid">
+        <div class="video-tile"><div class="play-btn">▶</div></div>
+        <div class="video-tile"><div class="play-btn">▶</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section id="form" class="center">
+    <div class="wrap">
+      <h2 class="sec-title">Form Gabung <span class="accent">Ajak Teman Plus</span></h2>
+      <p class="sec-sub">Yuk isi form di bawah, tim Ajaib akan menghubungi kamu setelah lolos kurasi.</p>
+      <form class="form-wrap" style="text-align:left;" onsubmit="submitForm(event)">
+        <div class="form-grid">
+          <div>
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" type="text" placeholder="Masukkan nama lengkap" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="Masukkan email" required />
+            </div>
+            <div class="field">
+              <label for="size">Audience size (self-reported)</label>
+              <input id="size" type="text" placeholder="contoh: 50.000 followers" />
+            </div>
+          </div>
+          <div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" type="tel" placeholder="+62" required />
+            </div>
+            <div class="field">
+              <label for="social">Primary social link</label>
+              <input id="social" type="url" placeholder="https://instagram.com/username" />
+            </div>
+            <div class="field">
+              <label for="platform">Platform of audience size</label>
+              <select id="platform">
+                <option value="">Pilih platform</option>
+                <option>Instagram</option>
+                <option>TikTok</option>
+                <option>YouTube</option>
+                <option>X / Twitter</option>
+                <option>Lainnya</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Type of audience</label>
+          <div class="pills">
+            <button type="button" class="pill" aria-pressed="true" onclick="togglePill(this)">Finance / investing</button>
+            <button type="button" class="pill" aria-pressed="false" onclick="togglePill(this)">Lifestyle</button>
+            <button type="button" class="pill" aria-pressed="false" onclick="togglePill(this)">Entertainment</button>
+            <button type="button" class="pill" aria-pressed="false" onclick="togglePill(this)">Other</button>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary btn-lg">Kirim Form</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <h2 class="sec-title">Punya Pertanyaan atau Ingin Tahu Lebih Jelas?</h2>
+      <div class="faq-grid">
+        <div>
+          <details open>
+            <summary>Kapan komisi saya dibayarkan?</summary>
+            <p>Komisi dibayarkan melalui proses Weekly Payout setelah Referee memenuhi seluruh persyaratan program — registrasi, KYC approved, top up, dan transaksi pertama dalam periode program.</p>
+          </details>
+          <details>
+            <summary>Apakah kode referral perlu dimasukkan manual?</summary>
+            <p>Tidak. Jika teman mendaftar melalui Referral Pro Link, kode referral otomatis diterapkan saat registrasi selesai.</p>
+          </details>
+          <details>
+            <summary>Kenapa saya tidak melihat menu Ajak Teman Plus?</summary>
+            <p>Menu ini hanya tersedia untuk pengguna yang telah diberikan akses berdasarkan kriteria kelayakan Ajaib.</p>
+          </details>
+          <a href="#" class="btn btn-outline btn-sm" style="margin-top:8px;">Pelajari Lebih Lanjut →</a>
+        </div>
+        <div class="faq-video">
+          <h3>Tonton Video tentang Ajak Teman Plus</h3>
+          <div class="video-tile"><div class="play-btn">▶</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download banner -->
+  <div class="dl-banner">
+    <div class="wrap">
+      <div class="dl-inner">
+        <div>
+          <h2>Yuk, investasi atau trading aset ini dengan download Ajaib sekarang!</h2>
+          <p>Scan QR dan download Ajaib sekarang.</p>
+          <div class="dl-badges">
+            <a href="#form" class="btn btn-white btn-md">Daftar Ambassador</a>
+            <a class="badge" href="#"><span class="ico">▶</span><span class="txt"><small>Dapatkan di</small><span>Google Play</span></span></a>
+            <a class="badge" href="#"><span class="ico"></span><span class="txt"><small>Download di</small><span>App Store</span></span></a>
+          </div>
+        </div>
+        <div class="qr">QR code</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap foot">
+      <a href="#" class="logo">ajaib</a>
+      <small>© 2026 PT Ajaib Teknologi Indonesia — All Rights Reserved</small>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+    function togglePill(el) {
+      el.setAttribute('aria-pressed', el.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    }
+    function submitForm(e) {
+      e.preventDefault();
+      alert('Terima kasih! Pendaftaran kamu sudah kami terima. Tim Ajaib akan menghubungi setelah proses kurasi.');
+    }
+  </script>
+</body>
+</html>
